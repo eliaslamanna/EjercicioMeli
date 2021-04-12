@@ -1,0 +1,11 @@
+model\Main.class
+exceptions\MessageIncompleteException.class
+request\AcquireShipInformationRequest.class
+model\SatelliteSkywalker.class
+exceptions\CoordinateNotFoundException.class
+model\SatelliteKenobi.class
+model\Satellite.class
+model\SatelliteSato.class
+model\Coordinate.class
+services\AcquireShipInformationService.class
+services\HandleMessagesService.class

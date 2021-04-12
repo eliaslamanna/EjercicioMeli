@@ -9,64 +9,61 @@ import javax.validation.Valid;
 import javax.validation.constraints.*;
 
 /**
- * Coordinate
+ * ShipDataResponse
  */
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-04-12T15:51:34.057Z[GMT]")
 
 
-public class Coordinate   {
-  @JsonProperty("x")
-  private Float x = null;
+public class ShipDataResponse   {
+  @JsonProperty("position")
+  private Coordinate position = null;
 
-  @JsonProperty("y")
-  private Float y = null;
+  @JsonProperty("message")
+  private String message = null;
 
-  public Coordinate(Float x, Float y) {
-    this.x = x;
-    this.y = y;
+  public ShipDataResponse(Coordinate position, String message) {
+    this.position = position;
+    this.message = message;
   }
 
-  public Coordinate() {
-    super();
-  }
-
-  public Coordinate x(Float x) {
-    this.x = x;
+  public ShipDataResponse position(Coordinate position) {
+    this.position = position;
     return this;
   }
 
   /**
-   * Get x
-   * @return x
+   * Get position
+   * @return position
    **/
   @Schema(description = "")
   
-    public Float getX() {
-    return x;
+    @Valid
+    public Coordinate getPosition() {
+    return position;
   }
 
-  public void setX(Float x) {
-    this.x = x;
+  public void setPosition(Coordinate position) {
+    this.position = position;
   }
 
-  public Coordinate y(Float y) {
-    this.y = y;
+  public ShipDataResponse message(String message) {
+    this.message = message;
     return this;
   }
 
   /**
-   * Get y
-   * @return y
+   * Get message
+   * @return message
    **/
   @Schema(description = "")
   
-    public Float getY() {
-    return y;
+    public String getMessage() {
+    return message;
   }
 
-  public void setY(Float y) {
-    this.y = y;
+  public void setMessage(String message) {
+    this.message = message;
   }
 
 
@@ -78,23 +75,23 @@ public class Coordinate   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Coordinate coordinate = (Coordinate) o;
-    return Objects.equals(this.x, coordinate.x) &&
-        Objects.equals(this.y, coordinate.y);
+    ShipDataResponse shipDataResponse = (ShipDataResponse) o;
+    return Objects.equals(this.position, shipDataResponse.position) &&
+        Objects.equals(this.message, shipDataResponse.message);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(x, y);
+    return Objects.hash(position, message);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Coordinate {\n");
+    sb.append("class ShipDataResponse {\n");
     
-    sb.append("    x: ").append(toIndentedString(x)).append("\n");
-    sb.append("    y: ").append(toIndentedString(y)).append("\n");
+    sb.append("    position: ").append(toIndentedString(position)).append("\n");
+    sb.append("    message: ").append(toIndentedString(message)).append("\n");
     sb.append("}");
     return sb.toString();
   }

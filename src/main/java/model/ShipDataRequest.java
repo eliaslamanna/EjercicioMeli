@@ -4,69 +4,49 @@ import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import io.swagger.v3.oas.annotations.media.Schema;
+import java.util.ArrayList;
+import java.util.List;
 import org.springframework.validation.annotation.Validated;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
 
 /**
- * Coordinate
+ * ShipDataRequest
  */
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-04-12T15:51:34.057Z[GMT]")
 
 
-public class Coordinate   {
-  @JsonProperty("x")
-  private Float x = null;
+public class ShipDataRequest   {
+  @JsonProperty("satellites")
+  @Valid
+  private List<SatelliteRequest> satellites = null;
 
-  @JsonProperty("y")
-  private Float y = null;
-
-  public Coordinate(Float x, Float y) {
-    this.x = x;
-    this.y = y;
+  public ShipDataRequest satellites(List<SatelliteRequest> satellites) {
+    this.satellites = satellites;
+    return this;
   }
 
-  public Coordinate() {
-    super();
-  }
-
-  public Coordinate x(Float x) {
-    this.x = x;
+  public ShipDataRequest addSatellitesItem(SatelliteRequest satellitesItem) {
+    if (this.satellites == null) {
+      this.satellites = new ArrayList<SatelliteRequest>();
+    }
+    this.satellites.add(satellitesItem);
     return this;
   }
 
   /**
-   * Get x
-   * @return x
+   * Get satellites
+   * @return satellites
    **/
   @Schema(description = "")
-  
-    public Float getX() {
-    return x;
+      @Valid
+    public List<SatelliteRequest> getSatellites() {
+    return satellites;
   }
 
-  public void setX(Float x) {
-    this.x = x;
-  }
-
-  public Coordinate y(Float y) {
-    this.y = y;
-    return this;
-  }
-
-  /**
-   * Get y
-   * @return y
-   **/
-  @Schema(description = "")
-  
-    public Float getY() {
-    return y;
-  }
-
-  public void setY(Float y) {
-    this.y = y;
+  public void setSatellites(List<SatelliteRequest> satellites) {
+    this.satellites = satellites;
   }
 
 
@@ -78,23 +58,21 @@ public class Coordinate   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Coordinate coordinate = (Coordinate) o;
-    return Objects.equals(this.x, coordinate.x) &&
-        Objects.equals(this.y, coordinate.y);
+    ShipDataRequest shipDataRequest = (ShipDataRequest) o;
+    return Objects.equals(this.satellites, shipDataRequest.satellites);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(x, y);
+    return Objects.hash(satellites);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Coordinate {\n");
+    sb.append("class ShipDataRequest {\n");
     
-    sb.append("    x: ").append(toIndentedString(x)).append("\n");
-    sb.append("    y: ").append(toIndentedString(y)).append("\n");
+    sb.append("    satellites: ").append(toIndentedString(satellites)).append("\n");
     sb.append("}");
     return sb.toString();
   }

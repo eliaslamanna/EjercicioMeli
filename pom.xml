@@ -3,7 +3,6 @@
 <project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0">
 
     <modelVersion>4.0.0</modelVersion>
-    <groupId>io.swagger</groupId>
     <artifactId>swagger-spring</artifactId>
     <packaging>jar</packaging>
     <name>swagger-spring</name>
@@ -23,7 +22,7 @@
     </parent>
 
     <build>
-        <sourceDirectory>C:/Users/admin/Desktop/EjercicioMeLi/src/main/java</sourceDirectory>
+        <sourceDirectory>C:/Users/admin/Desktop/EjercicioMeli/src/main/java</sourceDirectory>
 
         <pluginManagement>
             <plugins>

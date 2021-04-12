@@ -3,7 +3,6 @@ package model;
 import exceptions.CoordinateNotFoundException;
 import exceptions.MessageIncompleteException;
 import org.springframework.beans.factory.annotation.Autowired;
-import services.HandleMessagesService;
 
 import java.util.ArrayList;
 
@@ -47,9 +46,6 @@ public class Main {
 
         return returnValue;
     }
-
-    @Autowired
-    HandleMessagesService service;
 
     public static void main(String[] args) throws CoordinateNotFoundException, MessageIncompleteException {
 

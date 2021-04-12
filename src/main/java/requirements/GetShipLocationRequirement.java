@@ -1,0 +1,27 @@
+package requirements;
+
+import exceptions.CoordinateNotFoundException;
+import model.Coordinate;
+import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+import java.util.stream.Collectors;
+
+@Component
+public class GetShipLocationRequirement {
+
+    public Coordinate getShipLocation(ArrayList<Coordinate> coordinatesKenobi, ArrayList<Coordinate> coordinatesSkywalker, ArrayList<Coordinate> coordinatesSato) throws CoordinateNotFoundException {
+
+        Coordinate returnCoordinate = coordinatesKenobi
+                .stream()
+                .filter(currentCoor -> coordinatesSkywalker.contains(currentCoor) && coordinatesSato.contains(currentCoor))
+                .collect(Collectors.toList()).get(0);
+
+        if(returnCoordinate == null) {
+            throw new CoordinateNotFoundException();
+        }
+
+        return returnCoordinate;
+    }
+
+}

@@ -1,51 +1,44 @@
 package services;
 
 import exceptions.CoordinateNotFoundException;
+import exceptions.MessageIncompleteException;
 import model.Coordinate;
-import model.SatelliteKenobi;
-import model.SatelliteSato;
-import model.SatelliteSkywalker;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import requirements.GetSatellitesPossiblePositionsRequirement;
+import requirements.GetShipLocationRequirement;
+import requirements.WrapMessageTogetherRequirement;
 
 import java.util.ArrayList;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 @Service
 public class AcquireShipInformationService {
 
-    public void getSatellitesPossiblePositions(ArrayList<Coordinate> coordinatesKenobi, ArrayList<Coordinate> coordinatesSkywalker, ArrayList<Coordinate> coordinatesSato, float[] distances) {
+    @Autowired
+    GetSatellitesPossiblePositionsRequirement getSatellitesPossiblePositionsRequirement;
+    @Autowired
+    GetShipLocationRequirement getShipLocation;
+    @Autowired
+    WrapMessageTogetherRequirement wrapMessageTogetherRequirement;
 
-        SatelliteKenobi kenobi = new SatelliteKenobi(distances[0]);
-        SatelliteSkywalker skywalker = new SatelliteSkywalker(distances[1]);
-        SatelliteSato sato = new SatelliteSato(distances[2]);
+    // input: distancia al emisor tal cual se recibe en cada satélite
+    // output: las coordenadas ‘x’ e ‘y’ del emisor del mensaje
+    public Coordinate getLocation(Float[] distances) throws CoordinateNotFoundException {
 
-        IntStream
-            .range(0,360)
-            .forEach(i -> {
-                Coordinate currentCoordinateKenobi = new Coordinate((float) Math.cos(i) * kenobi.getDistance()  + kenobi.getCoordinates().getPositionX(),(float) Math.sin(i) * kenobi.getDistance() + kenobi.getCoordinates().getPositionY());
-                coordinatesKenobi.add(currentCoordinateKenobi);
+        ArrayList<Coordinate> coordinatesKenobi = new ArrayList<>();
+        ArrayList<Coordinate> coordinatesSkywalker = new ArrayList<>();
+        ArrayList<Coordinate> coordinatesSato = new ArrayList<>();
 
-                Coordinate currentCoordinateSkywalker = new Coordinate((float) Math.cos(i) * skywalker.getDistance() + skywalker.getCoordinates().getPositionX(),(float) Math.sin(i) * skywalker.getDistance() + skywalker.getCoordinates().getPositionY());
-                coordinatesSkywalker.add(currentCoordinateSkywalker);
+        getSatellitesPossiblePositionsRequirement.getSatellitesPossiblePositions(coordinatesKenobi,coordinatesSkywalker,coordinatesSato,distances);
 
-                Coordinate currentCoordinateSato = new Coordinate((float) Math.cos(i) * sato.getDistance() + sato.getCoordinates().getPositionX(),(float) Math.sin(i) * sato.getDistance() + sato.getCoordinates().getPositionY());
-                coordinatesSato.add(currentCoordinateSato);
-            });
+        return getShipLocation.getShipLocation(coordinatesKenobi,coordinatesSkywalker,coordinatesSato);
     }
 
-    public Coordinate getShipLocation(ArrayList<Coordinate> coordinatesKenobi, ArrayList<Coordinate> coordinatesSkywalker, ArrayList<Coordinate> coordinatesSato) throws CoordinateNotFoundException {
 
-        Coordinate returnCoordinate = coordinatesKenobi
-                .stream()
-                .filter(currentCoor -> coordinatesSkywalker.contains(currentCoor) && coordinatesSato.contains(currentCoor))
-                .collect(Collectors.toList()).get(0);
-
-        if(returnCoordinate == null) {
-            throw new CoordinateNotFoundException();
-        }
-
-        return returnCoordinate;
+    // input: el mensaje tal cual es recibido en cada satélite
+    // output: el mensaje tal cual lo genera el emisor del mensaje
+    public String getMessage(ArrayList<ArrayList<String>> messages) throws MessageIncompleteException {
+        return wrapMessageTogetherRequirement.wrapMessageTogether(messages);
     }
 
 }
