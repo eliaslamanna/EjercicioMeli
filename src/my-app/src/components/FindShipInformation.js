@@ -1,4 +1,6 @@
 import React, {useState} from 'react';
+import {Link, Router} from 'react-router-dom';
+import { useHistory } from "react-router-dom";
 
 function FindShipInformation() {
 
@@ -24,8 +26,9 @@ function FindShipInformation() {
       satellites : [kenobi,skywalker,sato]
     };
 
-    let handleForm = (event, valor) => {
+    let history = useHistory();
 
+    let handleForm = (event, valor) => {
 
         var randKenobi = Math.floor(Math.random() * 3);
         for(var i = 0; i < randKenobi; i ++) {
@@ -41,6 +44,14 @@ function FindShipInformation() {
         for(var y = 0; y < randSato; y ++) {
             setEstadoSato({...sato, [sato.message]: sato.message.unshift(" ")});
         }
+
+        history.push(
+            {
+                pathname:"/shipData",
+                state:satellites
+            }
+         );
+
 
         event.stopPropagation();
         event.preventDefault();
@@ -96,7 +107,7 @@ function FindShipInformation() {
                 <input type="text" placeholder="Sato message" name="message" value={sato.message} onChange={(event)=>handleSato(event)}/>
 
                 <br/>
-                <input variant="primary" value="Login" type="submit"/>
+                <input variant="primary" value="Ship Information" type="submit"/>
             </form>
         </div>
     )
