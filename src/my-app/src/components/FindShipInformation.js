@@ -5,19 +5,19 @@ function FindShipInformation() {
     const[kenobi,setEstadoKenobi] = useState({
         name:'Kenobi',
         distance: '',
-        message: ''
+        message: []
     })
 
     const[skywalker,setEstadoSkywalker] = useState({
         name: 'Skywalker',
         distance: '',
-        message: ''
+        message: []
     })
 
     const[sato,setEstadoSato] = useState({
         name: 'Sato',
         distance: '',
-        message: ''
+        message: []
     })
 
     let satellites = {
@@ -26,24 +26,54 @@ function FindShipInformation() {
 
     let handleForm = (event, valor) => {
 
-        console.log(satellites);
+
+        var randKenobi = Math.floor(Math.random() * 3);
+        for(var i = 0; i < randKenobi; i ++) {
+            setEstadoKenobi({...kenobi, [kenobi.message]: kenobi.message.unshift(" ")});
+        }
+
+        var randSkywalker = Math.floor(Math.random() * 3);
+        for(var x = 0; x < randSkywalker; x ++) {
+            setEstadoSkywalker({...skywalker, [skywalker.message]: skywalker.message.unshift(" ")});
+        }
+
+        var randSato = Math.floor(Math.random() * 3);
+        for(var y = 0; y < randSato; y ++) {
+            setEstadoSato({...sato, [sato.message]: sato.message.unshift(" ")});
+        }
 
         event.stopPropagation();
         event.preventDefault();
     }
 
     let handleKenobi = (event) => {
-        setEstadoKenobi({...kenobi, [event.target.name]: event.target.value});
+       if(event.target.name === "message") {
+           setEstadoKenobi({...kenobi, [event.target.name]: event.target.value.split(",")});
+       }
+       else{
+           setEstadoKenobi({...kenobi, [event.target.name]: event.target.value});
+       }
         event.preventDefault();
     }
 
     let handleSkywalker = (event) => {
-        setEstadoSkywalker({...skywalker, [event.target.name]: event.target.value});
+        if(event.target.name === "message") {
+            setEstadoSkywalker({...skywalker, [event.target.name]: event.target.value.split(",")});
+        }
+        else{
+            setEstadoSkywalker({...skywalker, [event.target.name]: event.target.value});
+        }
         event.preventDefault();
     }
 
     let handleSato = (event) => {
-        setEstadoSato({...sato, [event.target.name]: event.target.value});
+        if(event.target.name === "message") {
+            setEstadoSato({...sato, [event.target.name]: event.target.value.split(",")});
+        }
+        else {
+            setEstadoSato({...sato, [event.target.name]: event.target.value});
+        }
+
         event.preventDefault();
     }
 
