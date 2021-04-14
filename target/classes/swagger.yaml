@@ -14,7 +14,7 @@ paths:
         description: satellites
         required: true
         content:
-          aplication/json:
+          application/json:
             schema:
               type: object
               title: shipDataRequest
@@ -27,7 +27,7 @@ paths:
         200:
           description: Ok
           content:
-            aplication/json:
+            application/json:
               schema:
                 type: object
                 title: shipDataResponse

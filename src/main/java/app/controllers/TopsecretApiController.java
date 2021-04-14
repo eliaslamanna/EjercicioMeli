@@ -12,6 +12,7 @@ import app.model.ShipDataResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -41,7 +42,7 @@ public class TopsecretApiController implements TopsecretApi {
     }
 
     @Override
-    public ResponseEntity<ShipDataResponse> getDataShip(@Parameter(in = ParameterIn.DEFAULT, description = "satellites", required=true, schema=@Schema()) @Valid @RequestBody ShipDataRequest body) throws CoordinateNotFoundException, MessageIncompleteException {
+    public ResponseEntity<ShipDataResponse> getDataShip(@Parameter(in = ParameterIn.DEFAULT, description = "satellites", required=true, schema=@Schema()) @Valid @RequestBody ShipDataRequest body) throws MessageIncompleteException, CoordinateNotFoundException {
 
         ArrayList<ArrayList<String>> messages = new ArrayList<>();
         messages.add((ArrayList<String>) body.getSatellites().get(0).getMessage());
@@ -57,7 +58,10 @@ public class TopsecretApiController implements TopsecretApi {
         String completeMessage = acquireShipInformationService.getMessage(messages);
         Coordinate shipCoordinates = acquireShipInformationService.getLocation(distances);
 
-        return ResponseEntity.ok(new ShipDataResponse(shipCoordinates, completeMessage));
+        if(completeMessage == null || shipCoordinates == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ShipDataResponse(shipCoordinates, completeMessage));
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(new ShipDataResponse(shipCoordinates, completeMessage));
     }
 
 }
