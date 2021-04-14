@@ -38,7 +38,16 @@ paths:
                     type: string
         404:
           description: ERROR The message or the possition couldn't be determinated
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                title: shipDataResponse
+                properties:
+                  position:
+                    $ref: '#/components/schemas/Coordinate'
+                  message:
+                    type: string
   
 components:
   schemas:

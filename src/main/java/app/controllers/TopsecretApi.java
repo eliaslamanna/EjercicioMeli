@@ -43,7 +43,7 @@ public interface TopsecretApi {
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Ok", content = @Content(schema = @Schema(implementation = ShipDataResponse.class))),
         
-        @ApiResponse(responseCode = "404", description = "ERROR The message or the possition couldn't be determinated") })
+        @ApiResponse(responseCode = "404", description = "ERROR The message or the possition couldn't be determinated", content = @Content(schema = @Schema(implementation = ShipDataResponse.class))) })
     @RequestMapping(value = "/topsecret",
         produces = { "application/json" }, 
         consumes = { "application/json" }, 

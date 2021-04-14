@@ -8,7 +8,8 @@ class ShipData extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            satellites : props.location.state.satellites
+            satellites : props.location.state.satellites,
+            shipData: {}
         }
     }
 
@@ -16,7 +17,6 @@ class ShipData extends Component {
         this.state.satellites[0].distance = parseFloat(this.state.satellites[0].distance);
         this.state.satellites[1].distance = parseFloat(this.state.satellites[1].distance);
         this.state.satellites[2].distance = parseFloat(this.state.satellites[2].distance);
-        console.log(this.state.satellites);
         const options = {
             method: 'POST',
             headers: { 'content-type': 'application/json' },
@@ -24,17 +24,20 @@ class ShipData extends Component {
             url: 'http://localhost:8080/topsecret'
         };
         axios(options)
-            .then((response) => {console.log(response)})
-            .catch(error => {console.log( 'the error has occured: ' + error) })
-
+            .then((response) => {this.state.shipData = response;})
+            .catch(error => {
+                console.log( 'the error has occured: ' + error);
+                this.setState({
+                    shipData: error.response.data
+                })
+            })
     }
 
     render(){
         return (
             <>
-            <div>
-                <p>Cambio de componente</p>
-            </div>
+                {this.state.shipData.position == null ? <p>La position es null</p> : <p>The position is: {this.state.shipData.position}</p>}
+                {this.state.shipData.message == null ? <p>El message es null</p> : <p>The message is: {this.state.shipData.message}</p>}
             </>
         )
     }
