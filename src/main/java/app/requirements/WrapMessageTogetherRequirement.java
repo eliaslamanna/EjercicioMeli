@@ -23,7 +23,7 @@ public class WrapMessageTogetherRequirement {
 
         messages.stream().forEach( message -> {
             message.stream()
-                    .filter(word -> !word.equals(""))
+                    .filter(word -> !word.equals(" "))
                     .forEach( word -> {
                         completeMessage.set(message.indexOf(word), word);
                     });

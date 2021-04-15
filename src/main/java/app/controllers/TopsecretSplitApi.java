@@ -5,6 +5,8 @@
  */
 package app.controllers;
 
+import app.exceptions.CoordinateNotFoundException;
+import app.exceptions.MessageIncompleteException;
 import app.model.SatelliteDataResponse;
 import app.model.ShipDataResponse;
 import app.model.SplitShipDataRequest;
@@ -46,7 +48,7 @@ public interface TopsecretSplitApi {
     @RequestMapping(value = "/topsecret_split",
         produces = { "application/json" }, 
         method = RequestMethod.GET)
-    ResponseEntity<ShipDataResponse> getSplitDataShip();
+    ResponseEntity<ShipDataResponse> getSplitDataShip() throws MessageIncompleteException, CoordinateNotFoundException;
 
 
     @Operation(summary = "update message and location from satellite", description = "", tags={  })

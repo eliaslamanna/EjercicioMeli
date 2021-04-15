@@ -16,7 +16,7 @@ public class GetMessageLengthRequirement {
                     .distinct()
                     .collect(Collectors.toList());
         }
-        differentWords.remove("");
+        differentWords.remove(" ");
         return differentWords.size();
     }
 

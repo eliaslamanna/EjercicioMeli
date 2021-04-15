@@ -213,8 +213,11 @@ public interface ShipdataMapper {
     }
 
     //Metodos custom
-    @Select("select * from satellitedata")
-    List<Satellitedata> findAll();
+    @Select("SELECT * FROM satellitedata WHERE name=#{name}")
+    Satellitedata selectSatelliteByName(@Param("name") String name);
+
+    @Select("SELECT * FROM satellitedata ORDER BY name")
+    List<Satellitedata> selectAll();
 
     @Update(
             "INSERT INTO satellitedata (name,distance,message)" +

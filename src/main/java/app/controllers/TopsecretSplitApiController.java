@@ -1,9 +1,10 @@
 package app.controllers;
 
+import app.exceptions.CoordinateNotFoundException;
+import app.exceptions.MessageIncompleteException;
 import app.mapper.ShipdataMapper;
-import app.model.SatelliteDataResponse;
-import app.model.ShipDataResponse;
-import app.model.SplitShipDataRequest;
+import app.model.*;
+import app.services.AcquireShipInformationService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -38,6 +39,7 @@ import javax.validation.constraints.*;
 import javax.validation.Valid;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -53,6 +55,8 @@ public class TopsecretSplitApiController implements TopsecretSplitApi {
 
     @Autowired
     ShipdataMapper shipdataMapper;
+    @Autowired
+    AcquireShipInformationService acquireShipInformationService;
 
     @org.springframework.beans.factory.annotation.Autowired
     public TopsecretSplitApiController(ObjectMapper objectMapper, HttpServletRequest request) {
@@ -61,24 +65,34 @@ public class TopsecretSplitApiController implements TopsecretSplitApi {
     }
 
     @Override
-    public ResponseEntity<ShipDataResponse> getSplitDataShip() {
-        String accept = request.getHeader("Accept");
-        if (accept != null && accept.contains("application/json")) {
-            try {
-                return new ResponseEntity<ShipDataResponse>(objectMapper.readValue("{\n  \"position\" : {\n    \"x\" : 0.8008282,\n    \"y\" : 6.0274563\n  },\n  \"message\" : \"message\"\n}", ShipDataResponse.class), HttpStatus.NOT_IMPLEMENTED);
-            } catch (IOException e) {
-                log.error("Couldn't serialize response for content type application/json", e);
-                return new ResponseEntity<ShipDataResponse>(HttpStatus.INTERNAL_SERVER_ERROR);
+    public ResponseEntity<ShipDataResponse> getSplitDataShip() throws MessageIncompleteException, CoordinateNotFoundException {
+        List<Satellitedata> satellites = shipdataMapper.selectAll();
+        Satellitedata kenobi = satellites.get(0);
+        Satellitedata skywalker = satellites.get(2);
+        Satellitedata sato = satellites.get(1);
+
+        Float[] distances = {kenobi.getDistance(),skywalker.getDistance(),sato.getDistance()};
+
+        ArrayList<ArrayList<String>> messages = new ArrayList<ArrayList<String>>();
+        ArrayList<String> currentMessage = new ArrayList<String>();
+        satellites.stream().forEach(satellite -> {
+            currentMessage.clear();
+            String[] message = satellite.getMessage().split(",");
+            for(int i  = 0; i < message.length; i ++) {
+                currentMessage.add(message[i]);
             }
+            messages.add(currentMessage);
+        });
+
+
+        String completeMessage = acquireShipInformationService.getMessage(messages);
+        Coordinate shipCoordinates = acquireShipInformationService.getLocation(distances);
+
+        if(completeMessage == null || shipCoordinates == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ShipDataResponse(shipCoordinates, completeMessage));
         }
-        SelectDSLCompleter sp = new SelectDSLCompleter() {
-            @Override
-            public Buildable<SelectModel> apply(QueryExpressionDSL<SelectModel> selectModelQueryExpressionDSL) {
-                return null;
-            }
-        };
-        shipdataMapper.select(sp);
-        return new ResponseEntity<ShipDataResponse>(HttpStatus.NOT_IMPLEMENTED);
+
+        return ResponseEntity.status(HttpStatus.OK).body(new ShipDataResponse(shipCoordinates, completeMessage));
     }
 
     @Override
