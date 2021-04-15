@@ -15,6 +15,10 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import model.Satellitedata;
+import org.mybatis.dynamic.sql.select.QueryExpressionDSL;
+import org.mybatis.dynamic.sql.select.SelectDSLCompleter;
+import org.mybatis.dynamic.sql.select.SelectModel;
+import org.mybatis.dynamic.sql.util.Buildable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,14 +71,19 @@ public class TopsecretSplitApiController implements TopsecretSplitApi {
                 return new ResponseEntity<ShipDataResponse>(HttpStatus.INTERNAL_SERVER_ERROR);
             }
         }
-
+        SelectDSLCompleter sp = new SelectDSLCompleter() {
+            @Override
+            public Buildable<SelectModel> apply(QueryExpressionDSL<SelectModel> selectModelQueryExpressionDSL) {
+                return null;
+            }
+        };
+        shipdataMapper.select(sp);
         return new ResponseEntity<ShipDataResponse>(HttpStatus.NOT_IMPLEMENTED);
     }
 
     @Override
     public ResponseEntity<SatelliteDataResponse> updateSplitSatelliteData(@Parameter(in = ParameterIn.PATH, description = "satellite to update", required=true, schema=@Schema()) @PathVariable("satellite_name") String satelliteName, @Parameter(in = ParameterIn.DEFAULT, description = "satellite", required=true, schema=@Schema()) @Valid @RequestBody SplitShipDataRequest body) {
-        Satellitedata satelliteData = new Satellitedata(satelliteName,body.getDistance(),body.getMessage().toString());
-        shipdataMapper.insert(satelliteData);
+        shipdataMapper.insertOrUpdateSatellite(satelliteName, body.getDistance(), body.getMessage().toString());
         SatelliteDataResponse response = new SatelliteDataResponse(satelliteName,body.getDistance(),body.getMessage());
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }

@@ -111,10 +111,13 @@ paths:
             application/json:
               schema:
                 type: object
-                title: shipDataResponse
+                title: satelliteDataResponse
                 properties:
-                  position:
-                    $ref: '#/components/schemas/Coordinate'
+                  name:
+                    type: string
+                  distance:
+                    type: number
+                    format: float
                   message:
                     type: string
         404:
@@ -125,8 +128,11 @@ paths:
                 type: object
                 title: shipDataResponse
                 properties:
-                  position:
-                    $ref: '#/components/schemas/Coordinate'
+                  name:
+                    type: string
+                  distance:
+                    type: number
+                    format: float
                   message:
                     type: string
   

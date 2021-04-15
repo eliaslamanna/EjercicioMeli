@@ -1,5 +1,6 @@
 package app.controllers;
 
+import app.mapper.ShipdataDynamicSqlSupport;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import app.exceptions.CoordinateNotFoundException;
 import app.exceptions.MessageIncompleteException;
@@ -10,6 +11,14 @@ import app.model.Coordinate;
 import app.model.ShipDataRequest;
 import app.model.ShipDataResponse;
 import app.mapper.ShipdataMapper;
+import model.Satellitedata;
+import org.mybatis.dynamic.sql.render.RenderingStrategies;
+import org.mybatis.dynamic.sql.select.QueryExpressionDSL;
+import org.mybatis.dynamic.sql.select.SelectDSLCompleter;
+import org.mybatis.dynamic.sql.select.SelectModel;
+import org.mybatis.dynamic.sql.select.render.SelectStatementProvider;
+import org.mybatis.dynamic.sql.util.Buildable;
+import org.mybatis.dynamic.sql.util.mybatis3.MyBatis3Utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +31,9 @@ import app.services.AcquireShipInformationService;
 import javax.validation.Valid;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
+import java.util.List;
+
+import static org.mybatis.dynamic.sql.util.mybatis3.MyBatis3Utils.select;
 
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-04-12T15:51:34.057Z[GMT]")
 @RestController
@@ -64,6 +76,7 @@ public class TopsecretApiController implements TopsecretApi {
         if(completeMessage == null || shipCoordinates == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ShipDataResponse(shipCoordinates, completeMessage));
         }
+
         return ResponseEntity.status(HttpStatus.OK).body(new ShipDataResponse(shipCoordinates, completeMessage));
     }
 
