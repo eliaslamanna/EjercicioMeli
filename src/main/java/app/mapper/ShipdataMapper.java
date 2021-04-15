@@ -36,7 +36,7 @@ public interface ShipdataMapper {
     /**
      * @mbg.generated generated automatically, do not modify!
      */
-    BasicColumn[] selectList = BasicColumn.columnList(id, name, distance, message);
+    BasicColumn[] selectList = BasicColumn.columnList(name, distance, message);
 
     /**
      * @mbg.generated generated automatically, do not modify!
@@ -67,8 +67,7 @@ public interface ShipdataMapper {
      */
     @SelectProvider(type=SqlProviderAdapter.class, method="select")
     @Results(id="ShipdataResult", value = {
-        @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
-        @Result(column="name", property="name", jdbcType=JdbcType.VARCHAR),
+        @Result(column="name", property="name", jdbcType=JdbcType.VARCHAR, id=true),
         @Result(column="distance", property="distance", jdbcType=JdbcType.REAL),
         @Result(column="message", property="message", jdbcType=JdbcType.VARCHAR)
     })
@@ -104,9 +103,9 @@ public interface ShipdataMapper {
     /**
      * @mbg.generated generated automatically, do not modify!
      */
-    default int deleteByPrimaryKey(Integer id_) {
+    default int deleteByPrimaryKey(String name_) {
         return delete(c -> 
-            c.where(id, isEqualTo(id_))
+            c.where(name, isEqualTo(name_))
         );
     }
 
@@ -115,8 +114,7 @@ public interface ShipdataMapper {
      */
     default int insert(Shipdata record) {
         return MyBatis3Utils.insert(this::insert, record, shipdata, c ->
-            c.map(id).toProperty("id")
-            .map(name).toProperty("name")
+            c.map(name).toProperty("name")
             .map(distance).toProperty("distance")
             .map(message).toProperty("message")
         );
@@ -127,8 +125,7 @@ public interface ShipdataMapper {
      */
     default int insertMultiple(Collection<Shipdata> records) {
         return MyBatis3Utils.insertMultiple(this::insertMultiple, records, shipdata, c ->
-            c.map(id).toProperty("id")
-            .map(name).toProperty("name")
+            c.map(name).toProperty("name")
             .map(distance).toProperty("distance")
             .map(message).toProperty("message")
         );
@@ -139,8 +136,7 @@ public interface ShipdataMapper {
      */
     default int insertSelective(Shipdata record) {
         return MyBatis3Utils.insert(this::insert, record, shipdata, c ->
-            c.map(id).toPropertyWhenPresent("id", record::getId)
-            .map(name).toPropertyWhenPresent("name", record::getName)
+            c.map(name).toPropertyWhenPresent("name", record::getName)
             .map(distance).toPropertyWhenPresent("distance", record::getDistance)
             .map(message).toPropertyWhenPresent("message", record::getMessage)
         );
@@ -170,9 +166,9 @@ public interface ShipdataMapper {
     /**
      * @mbg.generated generated automatically, do not modify!
      */
-    default Optional<Shipdata> selectByPrimaryKey(Integer id_) {
+    default Optional<Shipdata> selectByPrimaryKey(String name_) {
         return selectOne(c ->
-            c.where(id, isEqualTo(id_))
+            c.where(name, isEqualTo(name_))
         );
     }
 
@@ -187,8 +183,7 @@ public interface ShipdataMapper {
      * @mbg.generated generated automatically, do not modify!
      */
     static UpdateDSL<UpdateModel> updateAllColumns(Shipdata record, UpdateDSL<UpdateModel> dsl) {
-        return dsl.set(id).equalTo(record::getId)
-                .set(name).equalTo(record::getName)
+        return dsl.set(name).equalTo(record::getName)
                 .set(distance).equalTo(record::getDistance)
                 .set(message).equalTo(record::getMessage);
     }
@@ -197,8 +192,7 @@ public interface ShipdataMapper {
      * @mbg.generated generated automatically, do not modify!
      */
     static UpdateDSL<UpdateModel> updateSelectiveColumns(Shipdata record, UpdateDSL<UpdateModel> dsl) {
-        return dsl.set(id).equalToWhenPresent(record::getId)
-                .set(name).equalToWhenPresent(record::getName)
+        return dsl.set(name).equalToWhenPresent(record::getName)
                 .set(distance).equalToWhenPresent(record::getDistance)
                 .set(message).equalToWhenPresent(record::getMessage);
     }
@@ -208,10 +202,9 @@ public interface ShipdataMapper {
      */
     default int updateByPrimaryKey(Shipdata record) {
         return update(c ->
-            c.set(name).equalTo(record::getName)
-            .set(distance).equalTo(record::getDistance)
+            c.set(distance).equalTo(record::getDistance)
             .set(message).equalTo(record::getMessage)
-            .where(id, isEqualTo(record::getId))
+            .where(name, isEqualTo(record::getName))
         );
     }
 
@@ -220,10 +213,9 @@ public interface ShipdataMapper {
      */
     default int updateByPrimaryKeySelective(Shipdata record) {
         return update(c ->
-            c.set(name).equalToWhenPresent(record::getName)
-            .set(distance).equalToWhenPresent(record::getDistance)
+            c.set(distance).equalToWhenPresent(record::getDistance)
             .set(message).equalToWhenPresent(record::getMessage)
-            .where(id, isEqualTo(record::getId))
+            .where(name, isEqualTo(record::getName))
         );
     }
 }

@@ -5,11 +5,6 @@ package model;
  */
 public class Shipdata {
     /**
-     * Column: id
-     */
-    private Integer id;
-
-    /**
      * Column: name
      */
     private String name;
@@ -23,14 +18,6 @@ public class Shipdata {
      * Column: message
      */
     private String message;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;
