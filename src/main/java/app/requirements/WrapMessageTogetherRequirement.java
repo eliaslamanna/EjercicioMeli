@@ -19,7 +19,7 @@ public class WrapMessageTogetherRequirement {
         int messageLength = getMessageLengthRequirement.getMessageLength(messages);
         messagesSameSizeRequirement.makeMessagesSameSize(messages, messageLength);
         ArrayList<String> completeMessage = new ArrayList<>();
-        IntStream.range(0,messageLength).forEach(i -> completeMessage.add(""));
+        IntStream.range(0,messageLength).forEach(i -> completeMessage.add(" "));
 
         messages.stream().forEach( message -> {
             message.stream()

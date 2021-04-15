@@ -32,17 +32,17 @@ function FindShipInformation() {
 
         var randKenobi = Math.floor(Math.random() * 3);
         for(var i = 0; i < randKenobi; i ++) {
-            setEstadoKenobi({...kenobi, [kenobi.message]: kenobi.message.unshift("")});
+            setEstadoKenobi({...kenobi, [kenobi.message]: kenobi.message.unshift(" ")});
         }
 
         var randSkywalker = Math.floor(Math.random() * 3);
         for(var x = 0; x < randSkywalker; x ++) {
-            setEstadoSkywalker({...skywalker, [skywalker.message]: skywalker.message.unshift("")});
+            setEstadoSkywalker({...skywalker, [skywalker.message]: skywalker.message.unshift(" ")});
         }
 
         var randSato = Math.floor(Math.random() * 3);
         for(var y = 0; y < randSato; y ++) {
-            setEstadoSato({...sato, [sato.message]: sato.message.unshift("")});
+            setEstadoSato({...sato, [sato.message]: sato.message.unshift(" ")});
         }
 
         history.push(
