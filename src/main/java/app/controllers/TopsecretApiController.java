@@ -9,6 +9,8 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import app.model.Coordinate;
 import app.model.ShipDataRequest;
 import app.model.ShipDataResponse;
+import app.mapper.ShipdataMapper;
+import model.Shipdata;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +36,8 @@ public class TopsecretApiController implements TopsecretApi {
 
     @Autowired
     AcquireShipInformationService acquireShipInformationService;
+    @Autowired
+    ShipdataMapper shipdataMapper;
 
     @org.springframework.beans.factory.annotation.Autowired
     public TopsecretApiController(ObjectMapper objectMapper, HttpServletRequest request) {
@@ -54,6 +58,12 @@ public class TopsecretApiController implements TopsecretApi {
                 body.getSatellites().get(1).getDistance(),
                 body.getSatellites().get(2).getDistance()
         };
+
+        Shipdata ship = new Shipdata();
+        ship.setDistance(10F);
+        ship.setMessage("a,,b");
+        ship.setName("prueba");
+        shipdataMapper.insert(ship);
 
         String completeMessage = acquireShipInformationService.getMessage(messages);
         Coordinate shipCoordinates = acquireShipInformationService.getLocation(distances);

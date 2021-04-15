@@ -1,4 +1,4 @@
-package mapper;
+package app.mapper;
 
 import java.sql.JDBCType;
 import org.mybatis.dynamic.sql.SqlColumn;

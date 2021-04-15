@@ -1,6 +1,6 @@
-package mapper;
+package app.mapper;
 
-import static mapper.ShipdataDynamicSqlSupport.*;
+import static app.mapper.ShipdataDynamicSqlSupport.*;
 import static org.mybatis.dynamic.sql.SqlBuilder.*;
 
 import java.util.Collection;
