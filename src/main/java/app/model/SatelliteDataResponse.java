@@ -1,23 +1,22 @@
 package app.model;
 
+import java.util.List;
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import io.swagger.v3.oas.annotations.media.Schema;
-import java.util.ArrayList;
-import java.util.List;
 import org.springframework.validation.annotation.Validated;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
 
 /**
- * SatelliteRequest
+ * SatelliteDataResponse
  */
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-04-15T04:31:18.798Z[GMT]")
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-04-15T05:32:29.302Z[GMT]")
 
 
-public class SatelliteRequest   {
+public class SatelliteDataResponse   {
   @JsonProperty("name")
   private String name = null;
 
@@ -25,10 +24,15 @@ public class SatelliteRequest   {
   private Float distance = null;
 
   @JsonProperty("message")
-  @Valid
-  private List<String> message = null;
+  private String message = null;
 
-  public SatelliteRequest name(String name) {
+  public SatelliteDataResponse(String satelliteName, Float distance, List<String> message) {
+    this.name = satelliteName;
+    this.distance = distance;
+    this.message = message.toString();
+  }
+
+  public SatelliteDataResponse name(String name) {
     this.name = name;
     return this;
   }
@@ -47,7 +51,7 @@ public class SatelliteRequest   {
     this.name = name;
   }
 
-  public SatelliteRequest distance(Float distance) {
+  public SatelliteDataResponse distance(Float distance) {
     this.distance = distance;
     return this;
   }
@@ -66,16 +70,8 @@ public class SatelliteRequest   {
     this.distance = distance;
   }
 
-  public SatelliteRequest message(List<String> message) {
+  public SatelliteDataResponse message(String message) {
     this.message = message;
-    return this;
-  }
-
-  public SatelliteRequest addMessageItem(String messageItem) {
-    if (this.message == null) {
-      this.message = new ArrayList<String>();
-    }
-    this.message.add(messageItem);
     return this;
   }
 
@@ -85,11 +81,11 @@ public class SatelliteRequest   {
    **/
   @Schema(description = "")
   
-    public List<String> getMessage() {
+    public String getMessage() {
     return message;
   }
 
-  public void setMessage(List<String> message) {
+  public void setMessage(String message) {
     this.message = message;
   }
 
@@ -102,10 +98,10 @@ public class SatelliteRequest   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    SatelliteRequest satelliteRequest = (SatelliteRequest) o;
-    return Objects.equals(this.name, satelliteRequest.name) &&
-        Objects.equals(this.distance, satelliteRequest.distance) &&
-        Objects.equals(this.message, satelliteRequest.message);
+    SatelliteDataResponse satelliteDataResponse = (SatelliteDataResponse) o;
+    return Objects.equals(this.name, satelliteDataResponse.name) &&
+        Objects.equals(this.distance, satelliteDataResponse.distance) &&
+        Objects.equals(this.message, satelliteDataResponse.message);
   }
 
   @Override
@@ -116,7 +112,7 @@ public class SatelliteRequest   {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class SatelliteRequest {\n");
+    sb.append("class SatelliteDataResponse {\n");
     
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    distance: ").append(toIndentedString(distance)).append("\n");

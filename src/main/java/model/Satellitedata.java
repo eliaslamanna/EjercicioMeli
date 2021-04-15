@@ -1,9 +1,9 @@
 package model;
 
 /**
- * Table: shipdata
+ * Table: satellitedata
  */
-public class Shipdata {
+public class Satellitedata {
     /**
      * Column: name
      */
@@ -18,6 +18,12 @@ public class Shipdata {
      * Column: message
      */
     private String message;
+
+    public Satellitedata(String name, Float distance, String message) {
+        this.name = name;
+        this.distance = distance;
+        this.message = message;
+    }
 
     public String getName() {
         return name;

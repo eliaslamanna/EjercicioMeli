@@ -4,51 +4,56 @@ import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import io.swagger.v3.oas.annotations.media.Schema;
+import java.util.ArrayList;
+import java.util.List;
 import org.springframework.validation.annotation.Validated;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
 
 /**
- * ShipDataResponse
+ * SplitShipDataRequest
  */
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-04-15T04:31:18.798Z[GMT]")
 
 
-public class ShipDataResponse   {
-  @JsonProperty("position")
-  private Coordinate position = null;
+public class SplitShipDataRequest   {
+  @JsonProperty("distance")
+  private Float distance = null;
 
   @JsonProperty("message")
-  private String message = null;
+  @Valid
+  private List<String> message = null;
 
-  public ShipDataResponse(Coordinate shipCoordinates, String completeMessage) {
-    this.position = shipCoordinates;
-    this.message = completeMessage;
-  }
-
-  public ShipDataResponse position(Coordinate position) {
-    this.position = position;
+  public SplitShipDataRequest distance(Float distance) {
+    this.distance = distance;
     return this;
   }
 
   /**
-   * Get position
-   * @return position
+   * Get distance
+   * @return distance
    **/
   @Schema(description = "")
   
-    @Valid
-    public Coordinate getPosition() {
-    return position;
+    public Float getDistance() {
+    return distance;
   }
 
-  public void setPosition(Coordinate position) {
-    this.position = position;
+  public void setDistance(Float distance) {
+    this.distance = distance;
   }
 
-  public ShipDataResponse message(String message) {
+  public SplitShipDataRequest message(List<String> message) {
     this.message = message;
+    return this;
+  }
+
+  public SplitShipDataRequest addMessageItem(String messageItem) {
+    if (this.message == null) {
+      this.message = new ArrayList<String>();
+    }
+    this.message.add(messageItem);
     return this;
   }
 
@@ -58,11 +63,11 @@ public class ShipDataResponse   {
    **/
   @Schema(description = "")
   
-    public String getMessage() {
+    public List<String> getMessage() {
     return message;
   }
 
-  public void setMessage(String message) {
+  public void setMessage(List<String> message) {
     this.message = message;
   }
 
@@ -75,22 +80,22 @@ public class ShipDataResponse   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    ShipDataResponse shipDataResponse = (ShipDataResponse) o;
-    return Objects.equals(this.position, shipDataResponse.position) &&
-        Objects.equals(this.message, shipDataResponse.message);
+    SplitShipDataRequest splitShipDataRequest = (SplitShipDataRequest) o;
+    return Objects.equals(this.distance, splitShipDataRequest.distance) &&
+        Objects.equals(this.message, splitShipDataRequest.message);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(position, message);
+    return Objects.hash(distance, message);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class ShipDataResponse {\n");
+    sb.append("class SplitShipDataRequest {\n");
     
-    sb.append("    position: ").append(toIndentedString(position)).append("\n");
+    sb.append("    distance: ").append(toIndentedString(distance)).append("\n");
     sb.append("    message: ").append(toIndentedString(message)).append("\n");
     sb.append("}");
     return sb.toString();

@@ -6,7 +6,7 @@ import static org.mybatis.dynamic.sql.SqlBuilder.*;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
-import model.Shipdata;
+import model.Satellitedata;
 import org.apache.ibatis.annotations.DeleteProvider;
 import org.apache.ibatis.annotations.InsertProvider;
 import org.apache.ibatis.annotations.Mapper;
@@ -54,13 +54,13 @@ public interface ShipdataMapper {
      * @mbg.generated generated automatically, do not modify!
      */
     @InsertProvider(type=SqlProviderAdapter.class, method="insert")
-    int insert(InsertStatementProvider<Shipdata> insertStatement);
+    int insert(InsertStatementProvider<Satellitedata> insertStatement);
 
     /**
      * @mbg.generated generated automatically, do not modify!
      */
     @InsertProvider(type=SqlProviderAdapter.class, method="insertMultiple")
-    int insertMultiple(MultiRowInsertStatementProvider<Shipdata> multipleInsertStatement);
+    int insertMultiple(MultiRowInsertStatementProvider<Satellitedata> multipleInsertStatement);
 
     /**
      * @mbg.generated generated automatically, do not modify!
@@ -71,14 +71,14 @@ public interface ShipdataMapper {
         @Result(column="distance", property="distance", jdbcType=JdbcType.REAL),
         @Result(column="message", property="message", jdbcType=JdbcType.VARCHAR)
     })
-    List<Shipdata> selectMany(SelectStatementProvider selectStatement);
+    List<Satellitedata> selectMany(SelectStatementProvider selectStatement);
 
     /**
      * @mbg.generated generated automatically, do not modify!
      */
     @SelectProvider(type=SqlProviderAdapter.class, method="select")
     @ResultMap("ShipdataResult")
-    Optional<Shipdata> selectOne(SelectStatementProvider selectStatement);
+    Optional<Satellitedata> selectOne(SelectStatementProvider selectStatement);
 
     /**
      * @mbg.generated generated automatically, do not modify!
@@ -112,7 +112,7 @@ public interface ShipdataMapper {
     /**
      * @mbg.generated generated automatically, do not modify!
      */
-    default int insert(Shipdata record) {
+    default int insert(Satellitedata record) {
         return MyBatis3Utils.insert(this::insert, record, shipdata, c ->
             c.map(name).toProperty("name")
             .map(distance).toProperty("distance")
@@ -123,7 +123,7 @@ public interface ShipdataMapper {
     /**
      * @mbg.generated generated automatically, do not modify!
      */
-    default int insertMultiple(Collection<Shipdata> records) {
+    default int insertMultiple(Collection<Satellitedata> records) {
         return MyBatis3Utils.insertMultiple(this::insertMultiple, records, shipdata, c ->
             c.map(name).toProperty("name")
             .map(distance).toProperty("distance")
@@ -134,7 +134,7 @@ public interface ShipdataMapper {
     /**
      * @mbg.generated generated automatically, do not modify!
      */
-    default int insertSelective(Shipdata record) {
+    default int insertSelective(Satellitedata record) {
         return MyBatis3Utils.insert(this::insert, record, shipdata, c ->
             c.map(name).toPropertyWhenPresent("name", record::getName)
             .map(distance).toPropertyWhenPresent("distance", record::getDistance)
@@ -145,28 +145,28 @@ public interface ShipdataMapper {
     /**
      * @mbg.generated generated automatically, do not modify!
      */
-    default Optional<Shipdata> selectOne(SelectDSLCompleter completer) {
+    default Optional<Satellitedata> selectOne(SelectDSLCompleter completer) {
         return MyBatis3Utils.selectOne(this::selectOne, selectList, shipdata, completer);
     }
 
     /**
      * @mbg.generated generated automatically, do not modify!
      */
-    default List<Shipdata> select(SelectDSLCompleter completer) {
+    default List<Satellitedata> select(SelectDSLCompleter completer) {
         return MyBatis3Utils.selectList(this::selectMany, selectList, shipdata, completer);
     }
 
     /**
      * @mbg.generated generated automatically, do not modify!
      */
-    default List<Shipdata> selectDistinct(SelectDSLCompleter completer) {
+    default List<Satellitedata> selectDistinct(SelectDSLCompleter completer) {
         return MyBatis3Utils.selectDistinct(this::selectMany, selectList, shipdata, completer);
     }
 
     /**
      * @mbg.generated generated automatically, do not modify!
      */
-    default Optional<Shipdata> selectByPrimaryKey(String name_) {
+    default Optional<Satellitedata> selectByPrimaryKey(String name_) {
         return selectOne(c ->
             c.where(name, isEqualTo(name_))
         );
@@ -182,7 +182,7 @@ public interface ShipdataMapper {
     /**
      * @mbg.generated generated automatically, do not modify!
      */
-    static UpdateDSL<UpdateModel> updateAllColumns(Shipdata record, UpdateDSL<UpdateModel> dsl) {
+    static UpdateDSL<UpdateModel> updateAllColumns(Satellitedata record, UpdateDSL<UpdateModel> dsl) {
         return dsl.set(name).equalTo(record::getName)
                 .set(distance).equalTo(record::getDistance)
                 .set(message).equalTo(record::getMessage);
@@ -191,7 +191,7 @@ public interface ShipdataMapper {
     /**
      * @mbg.generated generated automatically, do not modify!
      */
-    static UpdateDSL<UpdateModel> updateSelectiveColumns(Shipdata record, UpdateDSL<UpdateModel> dsl) {
+    static UpdateDSL<UpdateModel> updateSelectiveColumns(Satellitedata record, UpdateDSL<UpdateModel> dsl) {
         return dsl.set(name).equalToWhenPresent(record::getName)
                 .set(distance).equalToWhenPresent(record::getDistance)
                 .set(message).equalToWhenPresent(record::getMessage);
@@ -200,7 +200,7 @@ public interface ShipdataMapper {
     /**
      * @mbg.generated generated automatically, do not modify!
      */
-    default int updateByPrimaryKey(Shipdata record) {
+    default int updateByPrimaryKey(Satellitedata record) {
         return update(c ->
             c.set(distance).equalTo(record::getDistance)
             .set(message).equalTo(record::getMessage)
@@ -211,7 +211,7 @@ public interface ShipdataMapper {
     /**
      * @mbg.generated generated automatically, do not modify!
      */
-    default int updateByPrimaryKeySelective(Shipdata record) {
+    default int updateByPrimaryKeySelective(Satellitedata record) {
         return update(c ->
             c.set(distance).equalToWhenPresent(record::getDistance)
             .set(message).equalToWhenPresent(record::getMessage)

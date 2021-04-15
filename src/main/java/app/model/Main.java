@@ -47,8 +47,15 @@ public class Main {
     }
 
     public static void main(String[] args) throws CoordinateNotFoundException, MessageIncompleteException {
-
-
+        ArrayList<String> arr = new ArrayList<String>();
+        arr.add("a");
+        arr.add("");
+        arr.add("b");
+        arr.add("");
+        String[] arr2 = arr.toString().split(",");
+        for(int i = 0; i < arr.size(); i ++) {
+            System.out.print(arr2[i]);
+        }
     }
 
 }
