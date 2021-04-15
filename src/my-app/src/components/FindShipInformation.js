@@ -91,7 +91,7 @@ function FindShipInformation() {
     return (
         <div>
             <form onSubmit={handleForm}>
-                <h3>PRUEBA:</h3>
+                <h3>Kenobi:</h3>
                 <input type="number" placeholder="Kenobi distance" name="distance" value={kenobi.distance} onChange={(event)=>handleKenobi(event)}/>
                 <br/>
                 <input type="text" placeholder="Kenobi message" name="message" value={kenobi.message} onChange={(event)=>handleKenobi(event)}/>
