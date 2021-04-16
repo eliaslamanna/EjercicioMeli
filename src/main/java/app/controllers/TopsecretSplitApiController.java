@@ -97,7 +97,12 @@ public class TopsecretSplitApiController implements TopsecretSplitApi {
 
     @Override
     public ResponseEntity<SatelliteDataResponse> updateSplitSatelliteData(@Parameter(in = ParameterIn.PATH, description = "satellite to update", required=true, schema=@Schema()) @PathVariable("satellite_name") String satelliteName, @Parameter(in = ParameterIn.DEFAULT, description = "satellite", required=true, schema=@Schema()) @Valid @RequestBody SplitShipDataRequest body) {
-        shipdataMapper.insertOrUpdateSatellite(satelliteName, body.getDistance(), body.getMessage().toString());
+        String str = " ";
+        for (String word : body.getMessage()) {
+            str += word + ",";
+        }
+        str = str.substring(0, str.length() - 1);
+        shipdataMapper.insertOrUpdateSatellite(satelliteName, body.getDistance(), str);
         SatelliteDataResponse response = new SatelliteDataResponse(satelliteName,body.getDistance(),body.getMessage());
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
