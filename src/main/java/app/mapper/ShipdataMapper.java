@@ -226,5 +226,5 @@ public interface ShipdataMapper {
             "    distance=VALUES(distance)," +
             "    message=VALUES(message)"
     )
-    void insertOrUpdateSatellite(@Param("name") String name, @Param("distance") float distance, @Param("message") String message);
+    void insertSatellite(@Param("name") String name, @Param("distance") float distance, @Param("message") String message);
 }

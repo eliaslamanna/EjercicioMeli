@@ -3,6 +3,7 @@ package app.services;
 import app.exceptions.CoordinateNotFoundException;
 import app.exceptions.MessageIncompleteException;
 import app.model.Coordinate;
+import app.requirements.InsertSatelliteRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import app.requirements.GetSatellitesPossiblePositionsRequirement;
@@ -10,6 +11,7 @@ import app.requirements.GetShipLocationRequirement;
 import app.requirements.WrapMessageTogetherRequirement;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class AcquireShipInformationService {
@@ -20,6 +22,8 @@ public class AcquireShipInformationService {
     GetShipLocationRequirement getShipLocation;
     @Autowired
     WrapMessageTogetherRequirement wrapMessageTogetherRequirement;
+    @Autowired
+    InsertSatelliteRequirement insertSatelliteRequirement;
 
     // input: distancia al emisor tal cual se recibe en cada satélite
     // output: las coordenadas ‘x’ e ‘y’ del emisor del mensaje
@@ -39,6 +43,10 @@ public class AcquireShipInformationService {
     // output: el mensaje tal cual lo genera el emisor del mensaje
     public String getMessage(ArrayList<ArrayList<String>> messages) throws MessageIncompleteException {
         return wrapMessageTogetherRequirement.wrapMessageTogether(messages);
+    }
+
+    public void insertSatellite(String satelliteName, Float satelliteDistance, List<String> satelliteMessage) {
+        insertSatelliteRequirement.insertSatellite(satelliteName,satelliteDistance,satelliteMessage);
     }
 
 }
