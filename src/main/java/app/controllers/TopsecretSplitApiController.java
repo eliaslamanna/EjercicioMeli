@@ -66,27 +66,10 @@ public class TopsecretSplitApiController implements TopsecretSplitApi {
 
     @Override
     public ResponseEntity<ShipDataResponse> getSplitDataShip() throws MessageIncompleteException, CoordinateNotFoundException {
-        List<Satellitedata> satellites = shipdataMapper.selectAll();
-        Satellitedata kenobi = satellites.get(0);
-        Satellitedata skywalker = satellites.get(2);
-        Satellitedata sato = satellites.get(1);
 
-        Float[] distances = {kenobi.getDistance(),skywalker.getDistance(),sato.getDistance()};
-
-        ArrayList<ArrayList<String>> messages = new ArrayList<ArrayList<String>>();
-        ArrayList<String> currentMessage = new ArrayList<String>();
-        satellites.stream().forEach(satellite -> {
-            currentMessage.clear();
-            String[] message = satellite.getMessage().split(",");
-            for(int i  = 0; i < message.length; i ++) {
-                currentMessage.add(message[i]);
-            }
-            messages.add(currentMessage);
-        });
-
-
-        String completeMessage = acquireShipInformationService.getMessage(messages);
-        Coordinate shipCoordinates = acquireShipInformationService.getLocation(distances);
+        SatellitesDataContainer satellitesData = acquireShipInformationService.getSatellitesData();
+        String completeMessage = acquireShipInformationService.getMessage(satellitesData.getMessages());
+        Coordinate shipCoordinates = acquireShipInformationService.getLocation(satellitesData.getDistances());
 
         if(completeMessage == null || shipCoordinates == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ShipDataResponse(shipCoordinates, completeMessage));
