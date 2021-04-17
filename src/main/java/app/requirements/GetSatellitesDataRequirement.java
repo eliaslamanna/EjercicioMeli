@@ -23,13 +23,22 @@ public class GetSatellitesDataRequirement {
 
         Float[] distances = {kenobi.getDistance(),skywalker.getDistance(),sato.getDistance()};
 
-        ArrayList<ArrayList<String>> messages = new ArrayList<ArrayList<String>>();
-        ArrayList<String> currentMessage = new ArrayList<String>();
+        ArrayList<ArrayList<String>> messages = new ArrayList<>();
         satellites.stream().forEach(satellite -> {
+            ArrayList<String> currentMessage = new ArrayList<>();
             currentMessage.clear();
-            String[] message = satellite.getMessage().split(",");
+            String str = satellite.getMessage();
+            if(String.valueOf(str.charAt(satellite.getMessage().length() - 1)).equals(",")) {
+                str = str + " ";
+            }
+            String[] message = str.split(",");
             for(int i  = 0; i < message.length; i ++) {
-                currentMessage.add(message[i]);
+                if(String.valueOf(message[i]).equals("")) {
+                    currentMessage.add(" ");
+                }
+                else {
+                    currentMessage.add(message[i]);
+                }
             }
             messages.add(currentMessage);
         });
