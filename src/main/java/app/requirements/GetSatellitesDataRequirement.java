@@ -10,12 +10,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class GetSatellitesDataRequirement {
+public class GetSatellitesDataRequirement extends HandlerRequirement<Void, SatellitesDataContainer>{
 
     @Autowired
     ShipdataMapper shipdataMapper;
 
-    public SatellitesDataContainer getSatellitesData() {
+    @Override
+    public SatellitesDataContainer run(Void request) {
         List<Satellitedata> satellites = shipdataMapper.selectAll();
         Satellitedata kenobi = satellites.get(0);
         Satellitedata skywalker = satellites.get(2);

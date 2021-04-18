@@ -1,35 +1,33 @@
 package app.requirements;
 
-import app.model.Coordinate;
-import app.model.SatelliteKenobi;
-import app.model.SatelliteSato;
-import app.model.SatelliteSkywalker;
+import app.model.*;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.stream.IntStream;
 
 @Component
-public class GetSatellitesPossiblePositionsRequirement {
+public class GetSatellitesPossiblePositionsRequirement extends HandlerRequirement<GetSatellitePossiblePositionsRequest, Void>{
 
-    public void getSatellitesPossiblePositions(ArrayList<Coordinate> coordinatesKenobi, ArrayList<Coordinate> coordinatesSkywalker, ArrayList<Coordinate> coordinatesSato, Float[] distances) {
+    @Override
+    public Void run(GetSatellitePossiblePositionsRequest request) {
+            SatelliteKenobi kenobi = new SatelliteKenobi(request.getDistances()[0]);
+            SatelliteSkywalker skywalker = new SatelliteSkywalker(request.getDistances()[1]);
+            SatelliteSato sato = new SatelliteSato(request.getDistances()[2]);
 
-        SatelliteKenobi kenobi = new SatelliteKenobi(distances[0]);
-        SatelliteSkywalker skywalker = new SatelliteSkywalker(distances[1]);
-        SatelliteSato sato = new SatelliteSato(distances[2]);
+            IntStream
+                    .range(0,360)
+                    .forEach(i -> {
+                        Coordinate currentCoordinateKenobi = new Coordinate((float) Math.cos(i) * kenobi.getDistance()  + kenobi.getCoordinates().getX(),(float) Math.sin(i) * kenobi.getDistance() + kenobi.getCoordinates().getY());
+                        request.getCoordinatesKenobi().add(currentCoordinateKenobi);
 
-        IntStream
-                .range(0,360)
-                .forEach(i -> {
-                    Coordinate currentCoordinateKenobi = new Coordinate((float) Math.cos(i) * kenobi.getDistance()  + kenobi.getCoordinates().getX(),(float) Math.sin(i) * kenobi.getDistance() + kenobi.getCoordinates().getY());
-                    coordinatesKenobi.add(currentCoordinateKenobi);
+                        Coordinate currentCoordinateSkywalker = new Coordinate((float) Math.cos(i) * skywalker.getDistance() + skywalker.getCoordinates().getX(),(float) Math.sin(i) * skywalker.getDistance() + skywalker.getCoordinates().getY());
+                        request.getCoordinatesSkywalker().add(currentCoordinateSkywalker);
 
-                    Coordinate currentCoordinateSkywalker = new Coordinate((float) Math.cos(i) * skywalker.getDistance() + skywalker.getCoordinates().getX(),(float) Math.sin(i) * skywalker.getDistance() + skywalker.getCoordinates().getY());
-                    coordinatesSkywalker.add(currentCoordinateSkywalker);
+                        Coordinate currentCoordinateSato = new Coordinate((float) Math.cos(i) * sato.getDistance() + sato.getCoordinates().getX(),(float) Math.sin(i) * sato.getDistance() + sato.getCoordinates().getY());
+                        request.getCoordinatesSato().add(currentCoordinateSato);
+                    });
 
-                    Coordinate currentCoordinateSato = new Coordinate((float) Math.cos(i) * sato.getDistance() + sato.getCoordinates().getX(),(float) Math.sin(i) * sato.getDistance() + sato.getCoordinates().getY());
-                    coordinatesSato.add(currentCoordinateSato);
-                });
-    }
-
+            return null;
+        }
 }

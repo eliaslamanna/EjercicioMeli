@@ -7,9 +7,10 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Component
-public class GetMessageLengthRequirement {
+public class GetMessageLengthRequirement extends HandlerRequirement<ArrayList<ArrayList<String>>, Integer>{
 
-    public int getMessageLength(ArrayList<ArrayList<String>> messages) {
+    @Override
+    public Integer run(ArrayList<ArrayList<String>> messages) {
         ArrayList<String> differentWords = new ArrayList<>();
         for(ArrayList<String> message : messages){
             differentWords = (ArrayList<String>) Stream.concat(differentWords.stream(), message.stream())
@@ -19,5 +20,4 @@ public class GetMessageLengthRequirement {
         differentWords.remove(" ");
         return differentWords.size();
     }
-
 }

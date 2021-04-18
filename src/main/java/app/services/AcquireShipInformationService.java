@@ -2,8 +2,7 @@ package app.services;
 
 import app.exceptions.CoordinateNotFoundException;
 import app.exceptions.MessageIncompleteException;
-import app.model.Coordinate;
-import app.model.SatellitesDataContainer;
+import app.model.*;
 import app.requirements.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,23 +32,23 @@ public class AcquireShipInformationService {
         ArrayList<Coordinate> coordinatesSkywalker = new ArrayList<>();
         ArrayList<Coordinate> coordinatesSato = new ArrayList<>();
 
-        getSatellitesPossiblePositionsRequirement.getSatellitesPossiblePositions(coordinatesKenobi,coordinatesSkywalker,coordinatesSato,distances);
+        getSatellitesPossiblePositionsRequirement.run(new GetSatellitePossiblePositionsRequest(coordinatesKenobi,coordinatesSkywalker,coordinatesSato,distances));
 
-        return getShipLocation.getShipLocation(coordinatesKenobi,coordinatesSkywalker,coordinatesSato);
+        return getShipLocation.run(new GetShipLocationRequest(coordinatesKenobi,coordinatesSkywalker,coordinatesSato));
     }
 
 
     // input: el mensaje tal cual es recibido en cada satélite
     // output: el mensaje tal cual lo genera el emisor del mensaje
     public String getMessage(ArrayList<ArrayList<String>> messages) throws MessageIncompleteException {
-        return wrapMessageTogetherRequirement.wrapMessageTogether(messages);
+        return wrapMessageTogetherRequirement.run(messages);
     }
 
     public void insertSatellite(String satelliteName, Float satelliteDistance, List<String> satelliteMessage) {
-        insertSatelliteRequirement.insertSatellite(satelliteName,satelliteDistance,satelliteMessage);
+        insertSatelliteRequirement.run(new InsertSatelliteRequest(satelliteName,satelliteDistance,satelliteMessage));
     }
 
     public SatellitesDataContainer getSatellitesData() {
-        return getSatellitesDataRequirement.getSatellitesData();
+        return getSatellitesDataRequirement.run(null);
     }
 }

@@ -1,6 +1,7 @@
 import app.UserApplication;
 import app.exceptions.CoordinateNotFoundException;
 import app.exceptions.MessageIncompleteException;
+import app.model.MakeMessagesSameSizeRequest;
 import app.requirements.GetMessageLengthRequirement;
 import app.requirements.MakeMessagesSameSizeRequirement;
 import app.requirements.WrapMessageTogetherRequirement;
@@ -60,7 +61,8 @@ public class Tests {
         msgArr.add(msg2);
         msgArr.add(msg3);
 
-        Assert.assertEquals(4, getMessageLengthRequirement.getMessageLength(msgArr));
+        int size = getMessageLengthRequirement.run(msgArr);
+        Assert.assertEquals(4, size);
     }
 
     @Test
@@ -88,7 +90,7 @@ public class Tests {
         msgArr.add(msg2);
         msgArr.add(msg3);
 
-        makeMessagesSameSizeRequirement.makeMessagesSameSize(msgArr, 4);
+        makeMessagesSameSizeRequirement.run(new MakeMessagesSameSizeRequest(msgArr, 4));
         Assert.assertEquals(3,msgArr.stream().filter(arr -> arr.size() == 4).collect(Collectors.toList()).size());
     }
 
@@ -117,7 +119,7 @@ public class Tests {
         msgArr.add(msg2);
         msgArr.add(msg3);
 
-        Assert.assertEquals("This is a message", wrapMessageTogetherRequirement.wrapMessageTogether(msgArr));
+        Assert.assertEquals("This is a message", wrapMessageTogetherRequirement.run(msgArr));
     }
 
     //@Test(expected = MessageIncompleteException.class)
