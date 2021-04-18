@@ -2,7 +2,7 @@ package app.requirements;
 
 import app.mapper.ShipdataMapper;
 import app.model.SatellitesDataContainer;
-import model.Satellitedata;
+import app.model.Satellitedata;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

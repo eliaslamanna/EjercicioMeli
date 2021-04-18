@@ -6,7 +6,7 @@ import static org.mybatis.dynamic.sql.SqlBuilder.*;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
-import model.Satellitedata;
+import app.model.Satellitedata;
 import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.type.JdbcType;
 import org.mybatis.dynamic.sql.BasicColumn;

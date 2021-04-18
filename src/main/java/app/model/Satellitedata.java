@@ -1,4 +1,4 @@
-package model;
+package app.model;
 
 /**
  * Table: satellitedata
