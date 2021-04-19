@@ -1,7 +1,7 @@
 package app.services;
 
 import app.exceptions.CoordinateNotFoundException;
-import app.exceptions.MessageIncompleteException;
+import app.exceptions.DifferenteMessagesException;
 import app.model.*;
 import app.requirements.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,8 +40,14 @@ public class AcquireShipInformationService {
 
     // input: el mensaje tal cual es recibido en cada satélite
     // output: el mensaje tal cual lo genera el emisor del mensaje
-    public String getMessage(ArrayList<ArrayList<String>> messages) throws MessageIncompleteException {
-        return wrapMessageTogetherRequirement.run(messages);
+    public String getMessage(ArrayList<ArrayList<String>> messages) throws DifferenteMessagesException {
+        String completeMessage = "";
+        try {
+            completeMessage = wrapMessageTogetherRequirement.run(messages);
+        } catch(DifferenteMessagesException e) {
+            completeMessage = null;
+        }
+        return completeMessage;
     }
 
     public void insertSatellite(String satelliteName, Float satelliteDistance, List<String> satelliteMessage) {

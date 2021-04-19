@@ -1,8 +1,8 @@
 package app.controllers;
 
+import app.exceptions.DifferenteMessagesException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import app.exceptions.CoordinateNotFoundException;
-import app.exceptions.MessageIncompleteException;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -47,7 +47,7 @@ public class TopsecretApiController implements TopsecretApi {
     }
 
     @Override
-    public ResponseEntity<ShipDataResponse> getDataShip(@Parameter(in = ParameterIn.DEFAULT, description = "satellites", required=true, schema=@Schema()) @Valid @RequestBody ShipDataRequest body) throws MessageIncompleteException, CoordinateNotFoundException {
+    public ResponseEntity<ShipDataResponse> getDataShip(@Parameter(in = ParameterIn.DEFAULT, description = "satellites", required=true, schema=@Schema()) @Valid @RequestBody ShipDataRequest body) throws CoordinateNotFoundException, DifferenteMessagesException {
 
         ArrayList<ArrayList<String>> messages = new ArrayList<>();
         messages.add((ArrayList<String>) body.getSatellites().get(0).getMessage());

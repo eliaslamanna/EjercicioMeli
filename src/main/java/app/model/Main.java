@@ -1,7 +1,6 @@
 package app.model;
 
 import app.exceptions.CoordinateNotFoundException;
-import app.exceptions.MessageIncompleteException;
 
 import java.util.ArrayList;
 
@@ -17,7 +16,7 @@ public class Main {
         return shortestSize;
     }
 
-    public static void makeMesssagesSameSize(ArrayList<ArrayList<String>> messages, int size) throws MessageIncompleteException {
+    public static void makeMesssagesSameSize(ArrayList<ArrayList<String>> messages, int size) {
         for(ArrayList<String> message: messages) {
             while(message.size() > size) {
                 if(message.get(0).equals("")) {
@@ -46,7 +45,7 @@ public class Main {
         return returnValue;
     }
 
-    public static void main(String[] args) throws CoordinateNotFoundException, MessageIncompleteException {
+    public static void main(String[] args) throws CoordinateNotFoundException {
         ArrayList<String> arr = new ArrayList<String>();
         arr.add("a");
         arr.add("");

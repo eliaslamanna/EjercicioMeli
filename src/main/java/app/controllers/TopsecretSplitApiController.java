@@ -1,7 +1,7 @@
 package app.controllers;
 
 import app.exceptions.CoordinateNotFoundException;
-import app.exceptions.MessageIncompleteException;
+import app.exceptions.DifferenteMessagesException;
 import app.mapper.ShipdataMapper;
 import app.model.*;
 import app.services.AcquireShipInformationService;
@@ -43,7 +43,7 @@ public class TopsecretSplitApiController implements TopsecretSplitApi {
     }
 
     @Override
-    public ResponseEntity<ShipDataResponse> getSplitDataShip() throws MessageIncompleteException, CoordinateNotFoundException {
+    public ResponseEntity<ShipDataResponse> getSplitDataShip() throws CoordinateNotFoundException, DifferenteMessagesException {
 
         SatellitesDataContainer satellitesData = acquireShipInformationService.getSatellitesData();
         String completeMessage = acquireShipInformationService.getMessage(satellitesData.getMessages());
