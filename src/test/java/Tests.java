@@ -174,5 +174,5 @@ public class Tests {
 
         Assert.assertEquals("This is a message", acquireShipInformationService.getMessage(msgArr));
     }
-    
+
 }
